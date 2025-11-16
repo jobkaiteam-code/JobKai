@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  resume-reviewer-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jobkai-resume-reviewer-service
+    restart: unless-stopped
+    ports:
+      - "8002:8002"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - GROQ_API_KEY=${GROQ_API_KEY}
+    volumes:
+      - ./temp_files:/app/temp_files
+      - ./generated_resumes:/app/generated_resumes
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8002/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s

@@ -1,0 +1,34 @@
+---
+# Ansible Playbook to Remove JobKai from Kubernetes
+# Usage: ansible-playbook -i inventory.ini teardown.yml
+
+- name: Teardown JobKai Platform from Kubernetes
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  
+  vars:
+    namespace: jobkai
+    
+  tasks:
+    - name: Confirm teardown
+      pause:
+        prompt: "Are you sure you want to delete the entire JobKai namespace? (yes/no)"
+      register: confirm
+      
+    - name: Delete JobKai namespace and all resources
+      kubernetes.core.k8s:
+        state: absent
+        kind: Namespace
+        name: "{{ namespace }}"
+      when: confirm.user_input | lower == "yes"
+      
+    - name: Display teardown status
+      debug:
+        msg: "JobKai namespace '{{ namespace }}' and all resources have been deleted."
+      when: confirm.user_input | lower == "yes"
+      
+    - name: Teardown cancelled
+      debug:
+        msg: "Teardown cancelled by user."
+      when: confirm.user_input | lower != "yes"

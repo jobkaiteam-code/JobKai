@@ -1,0 +1,68 @@
+---
+# Ansible Playbook to Update JobKai Images
+# Usage: ansible-playbook -i inventory.ini update-images.yml --ask-vault-pass -e "service=all"
+
+- name: Update JobKai Container Images
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  
+  vars:
+    namespace: jobkai
+    service: "{{ service | default('all') }}"
+    acr_registry: jobkairegistry.azurecr.io
+    
+  tasks:
+    - name: Update All Services
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: "{{ item }}"
+            namespace: "{{ namespace }}"
+          spec:
+            template:
+              metadata:
+                annotations:
+                  rollout-timestamp: "{{ ansible_date_time.iso8601 }}"
+      loop:
+        - api-gateway
+        - frontend
+        - footprint-service
+        - resume-reviewer-service
+        - job-matcher-service
+        - ai-interviewer-service
+      when: service == "all"
+      
+    - name: Update Specific Service
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: "{{ service }}"
+            namespace: "{{ namespace }}"
+          spec:
+            template:
+              metadata:
+                annotations:
+                  rollout-timestamp: "{{ ansible_date_time.iso8601 }}"
+      when: service != "all"
+      
+    - name: Wait for rollout to complete
+      command: kubectl rollout status deployment/{{ item }} -n {{ namespace }}
+      loop:
+        - api-gateway
+        - frontend
+        - footprint-service
+        - resume-reviewer-service
+        - job-matcher-service
+        - ai-interviewer-service
+      when: service == "all"
+      
+    - name: Display update status
+      debug:
+        msg: "Image update triggered for {{ service }}. Rolling update in progress..."

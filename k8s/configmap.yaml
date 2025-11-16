@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jobkai-config
+  namespace: jobkai
+data:
+  # Service URLs (internal cluster communication)
+  FOOTPRINT_SERVICE_URL: "http://footprint-service.jobkai.svc.cluster.local:8001"
+  RESUME_REVIEWER_SERVICE_URL: "http://resume-reviewer-service.jobkai.svc.cluster.local:8002"
+  JOB_MATCHER_SERVICE_URL: "http://job-matcher-service.jobkai.svc.cluster.local:8003"
+  AI_INTERVIEWER_SERVICE_URL: "http://ai-interviewer-service.jobkai.svc.cluster.local:8004"
+  
+  # Application Configuration
+  LOG_LEVEL: "INFO"
+  ENVIRONMENT: "production"

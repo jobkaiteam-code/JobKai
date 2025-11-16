@@ -1,0 +1,66 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Firebase service account keys (NEVER commit these!)
+*firebase*adminsdk*.json
+*service-account*.json
+serviceAccountKey.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+*.egg-info/
+dist/
+build/
+
+# Temporary files
+temp_files/
+*.tmp
+*.temp
+
+# Generated resumes
+generated_resumes/*.pdf
+generated_resumes/*.tex
+generated_resumes/*.aux
+generated_resumes/*.log
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.override.yml
+
+# Job data
+*.csv
+jobs.csv
+job_recommendations.txt
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Test files
+test_*.py
+*_test.py

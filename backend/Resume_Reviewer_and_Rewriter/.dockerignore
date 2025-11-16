@@ -1,0 +1,28 @@
+# Ignorer les dossiers et fichiers spécifiques à Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+.venv
+venv
+env
+
+# Ignorer les fichiers de configuration locaux
+.env
+.gitignore
+.idea
+.vscode
+
+# Ignorer les dossiers de sortie et temporaires
+temp_files
+generated_resumes
+/home/ubuntu/upload
+
+# Ignorer les fichiers de log
+*.log
+
+# Ignorer les fichiers spécifiques à Docker (sauf ceux nécessaires à la construction)
+Dockerfile
+docker-compose.yml
+.dockerignore

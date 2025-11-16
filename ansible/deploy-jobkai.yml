@@ -1,0 +1,180 @@
+---
+# Ansible Playbook to Deploy JobKai Platform to Kubernetes
+# Usage: ansible-playbook -i inventory.ini deploy-jobkai.yml --ask-vault-pass
+
+- name: Deploy JobKai Platform to Kubernetes
+  hosts: localhost
+  connection: local
+  gather_facts: yes
+  
+  vars:
+    namespace: jobkai
+    k8s_manifests_dir: ../k8s
+    acr_registry: jobkairegistry.azurecr.io
+    
+  vars_files:
+    - vars/secrets.yml  # Encrypted with ansible-vault
+    
+  tasks:
+    - name: Verify kubectl is installed
+      command: kubectl version --client
+      register: kubectl_version
+      changed_when: false
+      
+    - name: Display kubectl version
+      debug:
+        msg: "{{ kubectl_version.stdout }}"
+        
+    - name: Check Kubernetes cluster connectivity
+      command: kubectl cluster-info
+      register: cluster_info
+      changed_when: false
+      
+    - name: Display cluster info
+      debug:
+        msg: "{{ cluster_info.stdout }}"
+        
+    - name: Create namespace
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', k8s_manifests_dir + '/namespace.yaml') }}"
+        
+    - name: Create ACR Docker Registry Secret
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Secret
+          metadata:
+            name: acr-secret
+            namespace: "{{ namespace }}"
+          type: kubernetes.io/dockerconfigjson
+          data:
+            .dockerconfigjson: "{{ acr_docker_config_json | b64encode }}"
+            
+    - name: Create JobKai Secrets
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Secret
+          metadata:
+            name: jobkai-secrets
+            namespace: "{{ namespace }}"
+          type: Opaque
+          stringData:
+            GROQ_API_KEY: "{{ groq_api_key }}"
+            FINDWORK_API_KEY: "{{ findwork_api_key }}"
+            GOOGLE_API_KEY: "{{ google_api_key }}"
+            VITE_VAPI_PUBLIC_KEY: "{{ vapi_public_key }}"
+            VITE_FIREBASE_API_KEY: "{{ firebase_api_key }}"
+            VITE_FIREBASE_AUTH_DOMAIN: "{{ firebase_auth_domain }}"
+            VITE_FIREBASE_PROJECT_ID: "{{ firebase_project_id }}"
+            VITE_FIREBASE_STORAGE_BUCKET: "{{ firebase_storage_bucket }}"
+            VITE_FIREBASE_MESSAGING_SENDER_ID: "{{ firebase_messaging_sender_id }}"
+            VITE_FIREBASE_APP_ID: "{{ firebase_app_id }}"
+            VITE_FIREBASE_MEASUREMENT_ID: "{{ firebase_measurement_id }}"
+            VITE_API_URL: "{{ api_gateway_url }}"
+            
+    - name: Create ConfigMap
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', k8s_manifests_dir + '/configmap.yaml') }}"
+        
+    - name: Deploy Footprint Service
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', k8s_manifests_dir + '/footprint.yaml') }}"
+        
+    - name: Deploy Resume Reviewer Service
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', k8s_manifests_dir + '/resume-reviewer.yaml') }}"
+        
+    - name: Deploy Job Matcher Service
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', k8s_manifests_dir + '/job-matcher.yaml') }}"
+        
+    - name: Deploy AI Interviewer Service
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', k8s_manifests_dir + '/ai-interviewer.yaml') }}"
+        
+    - name: Wait for backend services to be ready
+      pause:
+        seconds: 10
+        prompt: "Giving backend services time to start..."
+        
+    - name: Deploy API Gateway
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', k8s_manifests_dir + '/api-gateway.yaml') }}"
+        
+    - name: Deploy Frontend
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', k8s_manifests_dir + '/frontend.yaml') }}"
+        
+    - name: Deploy Ingress (Optional)
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', k8s_manifests_dir + '/ingress.yaml') }}"
+      when: deploy_ingress | default(false)
+      
+    - name: Get all pods status
+      command: kubectl get pods -n {{ namespace }}
+      register: pods_status
+      changed_when: false
+      
+    - name: Display pods status
+      debug:
+        msg: "{{ pods_status.stdout_lines }}"
+        
+    - name: Get all services
+      command: kubectl get svc -n {{ namespace }}
+      register: services_status
+      changed_when: false
+      
+    - name: Display services status
+      debug:
+        msg: "{{ services_status.stdout_lines }}"
+        
+    - name: Get Frontend LoadBalancer IP/Hostname
+      shell: |
+        kubectl get svc frontend -n {{ namespace }} -o jsonpath='{.status.loadBalancer.ingress[0].ip}{.status.loadBalancer.ingress[0].hostname}'
+      register: frontend_lb
+      changed_when: false
+      retries: 10
+      delay: 10
+      until: frontend_lb.stdout != ""
+      ignore_errors: yes
+      
+    - name: Display Frontend URL
+      debug:
+        msg: "Frontend is accessible at: http://{{ frontend_lb.stdout }}"
+      when: frontend_lb.stdout != ""
+      
+    - name: Display completion message
+      debug:
+        msg: |
+          ==========================================
+          JobKai Platform Deployment Complete!
+          ==========================================
+          Namespace: {{ namespace }}
+          
+          Services deployed:
+          - API Gateway (Port 8000)
+          - Frontend (Port 80)
+          - Footprint Service (Port 8001)
+          - Resume Reviewer (Port 8002)
+          - Job Matcher (Port 8003)
+          - AI Interviewer (Port 8004)
+          
+          To check status:
+          kubectl get all -n {{ namespace }}
+          
+          To view logs:
+          kubectl logs -n {{ namespace }} -l app=api-gateway
+          kubectl logs -n {{ namespace }} -l app=frontend
+          ==========================================

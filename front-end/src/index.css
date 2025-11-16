@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 214 95% 56%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 25 95% 63%;
+    --accent-foreground: 0 0% 100%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 214 95% 56%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 214 95% 56%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 214 95% 56%;
+
+    --chart-1: 214 95% 56%;
+    --chart-2: 25 95% 63%;
+    --chart-3: 142 76% 36%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 82% 52%;
+
+    --shadow-soft: 0 2px 8px -2px hsl(222 47% 11% / 0.08);
+    --shadow-medium: 0 4px 16px -4px hsl(222 47% 11% / 0.12);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    /* Black background with purple accents */
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 5%;
+    --popover-foreground: 0 0% 100%;
+
+    /* Purple primary */
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 262 47% 12%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 262 20% 15%;
+    --muted-foreground: 0 0% 70%;
+
+    /* Bright purple accent */
+    --accent: 270 100% 70%;
+    --accent-foreground: 0 0% 0%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 262 30% 18%;
+    --input: 262 30% 18%;
+    --ring: 262 83% 58%;
+
+    /* Purple sidebar */
+    --sidebar-background: 262 50% 8%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 262 83% 58%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 262 47% 12%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 262 30% 18%;
+    --sidebar-ring: 262 83% 58%;
+
+    /* Purple-based chart colors */
+    --chart-1: 262 83% 58%;
+    --chart-2: 280 65% 60%;
+    --chart-3: 290 70% 65%;
+    --chart-4: 245 75% 65%;
+    --chart-5: 310 60% 55%;
+    --chart-3: 142 76% 36%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 82% 52%;
+
+    --shadow-soft: 0 2px 8px -2px hsl(0 0% 0% / 0.3);
+    --shadow-medium: 0 4px 16px -4px hsl(0 0% 0% / 0.4);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

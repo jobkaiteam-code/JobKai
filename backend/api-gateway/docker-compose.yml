@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  api-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jobkai-api-gateway
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - FOOTPRINT_URL=http://jobkai-footprint-service:8001
+      - RESUME_REVIEWER_URL=http://jobkai-resume-reviewer-service:8002
+      - JOB_MATCHER_URL=http://jobkai-job-matcher-service:8003
+      - FIREBASE_SERVICE_ACCOUNT=/app/job-kai-firebase-adminsdk-fbsvc-9244ba7dc4.json
+    networks:
+      - backend_jobkai-network
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+networks:
+  backend_jobkai-network:
+    external: true

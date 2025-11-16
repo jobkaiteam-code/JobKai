@@ -1,0 +1,273 @@
+# ===========================
+# JobKai Project .gitignore
+# ===========================
+
+# ============ Environment Files ============
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+backend/.env
+front-end/.env
+backend/*/env
+.envrc
+
+# ============ Python ============
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+backend/Resume_Reviewer_and_Rewriter/env1/
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# ============ Node.js / React / Frontend ============
+# Dependencies
+node_modules/
+front-end/node_modules/
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Production builds
+/build
+/dist
+front-end/dist/
+front-end/build/
+
+# Misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Package managers
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+front-end/bun.lockb
+
+# ============ Docker ============
+*.log
+docker-compose.override.yml
+
+# ============ Kubernetes ============
+# Don't ignore manifests, but ignore generated configs
+k8s/secrets.yaml.local
+k8s/*-secret.yaml
+
+# ============ Ansible ============
+# Encrypted secrets (if using ansible-vault)
+ansible/vars/secrets.yml
+*.vault
+.vault_pass
+
+# ============ Firebase ============
+# Firebase service account keys - NEVER COMMIT THESE!
+*-firebase-adminsdk-*.json
+jobkai-firebase-adminsdk*.json
+job-kai-firebase-adminsdk*.json
+backend/api-gateway/*-firebase-adminsdk-*.json
+backend/ai-interviewer/*-firebase-adminsdk-*.json
+
+# Firebase cache
+.firebase/
+firebase-debug.log
+firestore-debug.log
+
+# ============ Operating System ============
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ============ IDEs ============
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# JetBrains (PyCharm, IntelliJ, etc.)
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# ============ Temporary Files ============
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.cache/
+tmp/
+temp/
+
+# Resume files (temporary)
+backend/Resume_Reviewer_and_Rewriter/temp_files/
+backend/Resume_Reviewer_and_Rewriter/generated_resumes/
+
+# ============ Logs ============
+*.log
+logs/
+*.log.*
+
+# ============ Backup Files ============
+*.bak
+*.backup
+*.old
+
+# ============ Compiled Source ============
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# ============ Archives ============
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# ============ Certificates / Keys (Security) ============
+*.pem
+*.key
+*.crt
+*.cer
+*.p12
+*.pfx
+
+# ============ Database Files ============
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+
+# ============ Documentation Builds ============
+docs/_build/
+site/
+
+# ============ Test Coverage ============
+.coverage
+.coverage.*
+coverage/
+*.cover
+.hypothesis/
+
+# ============ Machine Learning Models ============
+*.h5
+*.pkl
+*.pickle
+*.pt
+*.pth
+*.ckpt
+
+# ============ Project Specific ============
+# Generated resume files
+**/generated_resumes/*
+!**/generated_resumes/.gitkeep
+
+# Temporary upload files
+**/temp_files/*
+!**/temp_files/.gitkeep
+
+# Job scraping data
+backend/Job_matcher_from_linkedin-main/jobs.csv
+backend/Job_matcher_from_linkedin-main/job_recommendations.txt

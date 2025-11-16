@@ -1,0 +1,94 @@
+{
+  "title": "UtopiaHire: AI Career Architect for an Inclusive Future of Work",
+  "organizers": {
+    "main": [
+      "IEEE CS Tunisia Section Chapter",
+      "IEEE CN Tunisia Section Affinity Group",
+      "IEEE Tunisia CyberSecurity Local Group"
+    ],
+    "affiliations": [
+      "IEEE IAS (challenge modifiable)"
+    ]
+  },
+  "challenge_code": "T S Y P 1 3",
+  "overview": {
+    "scope": "Design and develop UtopiaHire, an AI-powered platform that promotes fairness and inclusivity in employment for job seekers across Sub-Saharan Africa and the MENA region. Deliver a modular, scalable MVP that can evolve with additional features.",
+    "goal": "Build a functional prototype demonstrating how AI can enhance career development and employment equity, while ensuring privacy, fairness, transparency and security-by-design."
+  },
+  "target_audience": [
+    "Student Branches (SBs) only",
+    "Job seekers across Sub-Saharan Africa and MENA (end-user persona / beneficiaries)"
+  ],
+  "core_module_options": [
+    {
+      "name": "Resume Reviewer/Rewriter",
+      "description": "NLP to analyze and improve resumes."
+    },
+    {
+      "name": "AI Interviewer & Profiler",
+      "description": "Simulate virtual interviews and provide insights on strengths and weaknesses."
+    },
+    {
+      "name": "Job Matcher",
+      "description": "Suggest regionally relevant job opportunities based on candidate profiles."
+    },
+    {
+      "name": "Footprint Scanner",
+      "description": "Explore and analyze public contributions on LinkedIn, GitHub, StackOverflow."
+    }
+  ],
+  "problem_statement": "Many candidates in emerging regions face high rejection rates due to outdated resumes, poor formatting, or algorithmic filtering and lack access to personalized career guidance or interview preparation. The task is to build an intelligent, fair, and secure solution to empower these job seekers to optimize applications, improve visibility, and prepare effectively.",
+  "deliverables": {
+    "phase_1": {
+      "deadline": "2025-11-16 23:59 GMT+1",
+      "deliverables": [
+        "PDF report describing design and methodology",
+        "GitHub repository with documented code (anonymous)",
+        "Demo video showing functionality and usability (anonymous)",
+        "Booth presentation at CSTAM"
+      ]
+    },
+    "phase_2": {
+      "deadline": "2025-12-21 23:59 GMT+1",
+      "deliverables": [
+        "Final presentation",
+        "Prototype showcase"
+      ]
+    }
+  },
+  "scoring": {
+    "initial_phase": {
+      "total": 90,
+      "criteria": {
+        "problem_understanding": 10,
+        "technical_approach": 45,
+        "quality_of_deliverables": 15,
+        "booth": 10,
+        "security_aspect": 10
+      }
+    },
+    "final_phase": {
+      "total": 40,
+      "criteria": {
+        "quality_of_presentation": 20,
+        "prototype_functionality_and_features": 20
+      }
+    },
+    "bonus": {
+      "total": 4,
+      "details": {
+        "CS_member": 1,
+        "CN_member": 1,
+        "CyberSecurity_LG_Collabratec": 1,
+        "Expert_mentoring": 1
+      }
+    }
+  },
+  "contacts": {
+    "email": [
+      "cn@ieee.tn",
+      "cs@ieee.tn",
+      "cybersecurity@ieee.tn"
+    ]
+  }
+}

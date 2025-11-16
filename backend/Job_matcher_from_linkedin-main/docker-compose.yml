@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  job-matcher-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jobkai-job-matcher-service
+    restart: unless-stopped
+    ports:
+      - "8003:8003"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - FINDWORK_API_KEY=${FINDWORK_API_KEY}
+    networks:
+      - backend_jobkai-network
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8003/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+
+networks:
+  backend_jobkai-network:
+    external: true
