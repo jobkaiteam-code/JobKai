@@ -986,24 +986,6 @@ cp backend/Resume_Reviewer_and_Rewriter/.env.example backend/Resume_Reviewer_and
 - **Vapi**: Voice interviews - [vapi.ai/dashboard](https://vapi.ai/dashboard)
 - **Firebase**: Authentication & database - [console.firebase.google.com](https://console.firebase.google.com/)
 
-## ✅ Production Checklist
-
-Before deploying to production:
-- [ ] Set up HTTPS with Let's Encrypt (cert-manager configured)
-- [ ] Configure Firebase authorized domains with production domain
-- [ ] Enable all required Firebase sign-in methods (Email, Google, GitHub)
-- [ ] Add Firebase Admin SDK JSON files to backend services
-- [ ] Create Kubernetes secrets with all API keys
-- [ ] Set up proper monitoring and logging (Prometheus + Grafana recommended)
-- [ ] Configure resource limits and autoscaling in Kubernetes
-- [ ] Set up backup strategy for Firebase Firestore data
-- [ ] Review and update CORS configuration for production domains
-- [ ] Enable Firebase security rules for Firestore
-- [ ] Set up CI/CD pipeline for automated deployments (GitHub Actions recommended)
-- [ ] Configure DNS with custom domain (A records for frontend and API)
-- [ ] Test all services health checks
-- [ ] Perform load testing
-- [ ] Set up error tracking (Sentry recommended)
 
 ## 🌐 Production Deployment (Azure AKS)
 
