@@ -148,7 +148,7 @@ JobKai is a comprehensive AI-powered career platform that helps job seekers opti
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/tsyp-JobKai.git
+git clone https://github.com/jobkaiteam-code/JobKai.git
 cd tsyp-JobKai
 ```
 
